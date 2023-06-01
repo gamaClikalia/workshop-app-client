@@ -30,7 +30,7 @@ jobs:
           docker push gamatest.azurecr.io/production:${{ github.sha }}
       - uses: azure/webapps-deploy@v2
         with:
-          app-name: 'backoffice-website'
+          app-name: 'gamaplanservice'
           images: 'gamatest.azurecr.io/production:${{ github.sha }}'
 
       - name: Azure logout
