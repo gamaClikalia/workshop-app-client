@@ -1,7 +1,7 @@
 name: 'Deploy to production'
 on:
   push:
-    branches: [main]
+    branches: [develop]
 
 jobs:
   build-and-deploy:
@@ -22,16 +22,16 @@ jobs:
 
       - uses: azure/docker-login@v1
         with:
-          login-server: backofficewebsitedocker.azurecr.io
+          login-server: gamatest.azurecr.io
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
-          docker build . -t backofficewebsitedocker.azurecr.io/production:${{ github.sha }}
-          docker push backofficewebsitedocker.azurecr.io/production:${{ github.sha }}
+          docker build . -t gamatest.azurecr.io/production:${{ github.sha }}
+          docker push gamatest.azurecr.io/production:${{ github.sha }}
       - uses: azure/webapps-deploy@v2
         with:
           app-name: 'backoffice-website'
-          images: 'backofficewebsitedocker.azurecr.io/production:${{ github.sha }}'
+          images: 'gamatest.azurecr.io/production:${{ github.sha }}'
 
       - name: Azure logout
         run: |
